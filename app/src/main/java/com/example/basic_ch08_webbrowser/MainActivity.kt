@@ -12,19 +12,19 @@ import com.example.basic_ch08_webbrowser.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var mainBinding: ActivityMainBinding
+    lateinit var mainBinding: ActivityMainBinding    // 뷰바인딩
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mainBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mainBinding.root)
 
-        initViews()
-        bindViews()
+        initViews()    // 뷰에 대해 선언
+        bindViews()    //
 
     }
 
-
+    // 뒤로 가기 실행 시 동작 오버라이딩
     override fun onBackPressed() {
 
         if (mainBinding.webView.canGoBack()) {  // 뒤로 갈 수 있는 경우에 뒤 히스토리로 이동동
@@ -32,18 +32,16 @@ class MainActivity : AppCompatActivity() {
         } else {
             super.onBackPressed()   // 뒤로가기 누를시 앱이 종료
         }
-
-
-
     }
+
+    // 웹뷰에 대해 연결
     private fun initViews() {
         mainBinding.webView.apply {
-            webViewClient = WebViewClient()
-            webChromeClient = WebChromeClient()
+            webViewClient = WebViewClient()     // 웹뷰 클라이언트 객체 생성
+            webChromeClient = WebChromeClient()    // 웹 크롬 뷰 클라이언트 객체 생성
             settings.javaScriptEnabled = true
             loadUrl(HOMEURL)
         }
-
     }
 
     private fun bindViews() {
@@ -59,8 +57,7 @@ class MainActivity : AppCompatActivity() {
                     mainBinding.webView.loadUrl("http://$loadUrl")
                 }
 
-
-        }
+            }
             return@setOnEditorActionListener false
 
         }
@@ -77,6 +74,7 @@ class MainActivity : AppCompatActivity() {
             mainBinding.webView.loadUrl(HOMEURL)
         }
 
+        // refreshLayout에서 refresh가 작동할 경우
         mainBinding.refreshLayout.setOnRefreshListener {
             mainBinding.webView.reload()
         }
